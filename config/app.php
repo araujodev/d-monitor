@@ -123,6 +123,4 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    'assetUrl' => env('APP_ASSET_URL', env('APP_URL', 'http://localhost')),
-
 ];

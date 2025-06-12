@@ -20,6 +20,12 @@ class MeasurementDayChart extends ChartWidget
     {
         return [
             now()->toDateString(),
+            now()->subDays(1)->toDateString(),
+            now()->subDays(2)->toDateString(),
+            now()->subDays(3)->toDateString(),
+            now()->subDays(4)->toDateString(),
+            now()->subDays(5)->toDateString(),
+            now()->subDays(6)->toDateString(),
         ];
     }
 

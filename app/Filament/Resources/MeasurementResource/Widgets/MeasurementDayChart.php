@@ -63,6 +63,6 @@ class MeasurementDayChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'bar';
+        return 'line';
     }
 }

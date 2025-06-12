@@ -7,7 +7,7 @@ use Filament\Widgets\ChartWidget;
 
 class MeasurementDayChart extends ChartWidget
 {
-    protected static ?string $heading = 'Glicemia por Tipo de Medição no Dia Selecionado';
+    protected static ?string $heading = 'Glicemia por Tipo de Medição no Dia Atual';
 
     protected static ?int $sort = 2;
 
@@ -16,22 +16,9 @@ class MeasurementDayChart extends ChartWidget
         return 'full';
     }
 
-    protected function getFilters(): array
-    {
-        return [
-            now()->toDateString(),
-            now()->subDays(1)->toDateString(),
-            now()->subDays(2)->toDateString(),
-            now()->subDays(3)->toDateString(),
-            now()->subDays(4)->toDateString(),
-            now()->subDays(5)->toDateString(),
-            now()->subDays(6)->toDateString(),
-        ];
-    }
-
     protected function getData(): array
     {
-        $dataSelecionada = $this->filter['data'] ?? now()->toDateString();
+        $dataSelecionada = now()->toDateString();
 
         $tipos = [
             0 => 'Em Jejum',

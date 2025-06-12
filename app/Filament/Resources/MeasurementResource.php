@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Filament\Resources;
-
 use App\Enums\MeasurementTypeEnum;
 use App\Filament\Resources\MeasurementResource\Pages;
 use App\Models\Measurement;
@@ -10,7 +9,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Query\Builder;
 
 class MeasurementResource extends Resource
 {
@@ -38,7 +36,6 @@ class MeasurementResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-
             ->columns([
                 Tables\Columns\TextColumn::make('value')
                     ->numeric()

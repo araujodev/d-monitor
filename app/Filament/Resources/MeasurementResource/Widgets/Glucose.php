@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\MeasurementResource\Widgets;
 
+use App\Enums\MeasurementTypeEnum;
 use Filament\Widgets\StatsOverviewWidget\Card;
 use Filament\Widgets\StatsOverviewWidget;
 use App\Models\Measurement;
@@ -18,7 +19,7 @@ class Glucose extends StatsOverviewWidget
             ->first();
 
         $valor1 = $highest1?->value ?? '–';
-        $data1 = $highest1?->created_at?->format('d/m/Y') ?? 'sem dados';
+        $data1 = $highest1?->created_at?->format('d/m/Y H:i') ?? 'sem dados';
 
         $highest2 = Measurement::query()
             ->where('measurement_type_enum', 0) // Em Jejum
@@ -27,7 +28,16 @@ class Glucose extends StatsOverviewWidget
             ->first();
 
         $valor2 = $highest2?->value ?? '–';
-        $data2 = $highest2?->created_at?->format('d/m/Y') ?? 'sem dados';
+        $data2 = $highest2?->created_at?->format('d/m/Y H:i') ?? 'sem dados';
+
+        $highes3 = Measurement::query()
+            ->where('measurement_type_enum', MeasurementTypeEnum::PreAlmoco) // Pré Almoco
+            ->orderByDesc('value')              // Maior valor primeiro
+            ->orderByDesc('created_at')         // Mais recente em caso de empate
+            ->first();
+
+        $valor3 = $highes3?->value ?? '–';
+        $data3 = $highes3?->created_at?->format('d/m/Y H:i') ?? 'sem dados';
 
         return [
 
@@ -36,10 +46,15 @@ class Glucose extends StatsOverviewWidget
                 ->color('danger') // vermelho
                 ->icon('heroicon-o-fire'),
 
-            Card::make('Maior Glicemia Pré-Jantar', "{$valor1} mg/dL")
+            Card::make('Maior Glicemia em Pré Almoco', "{$valor3} mg/dL")
+                ->description("Registrada em {$data3}")
+                ->color('danger') // vermelho
+                ->icon('heroicon-o-fire'),
+
+            Card::make('Maior Glicemia Pré Jantar', "{$valor1} mg/dL")
                 ->description("Registrada em {$data1}")
-                ->color('warning') // Amarelo (ou 'danger' se preferir vermelho)
-                ->icon('heroicon-o-clock'),
+                ->color('danger') // Amarelo (ou 'danger' se preferir vermelho)
+                ->icon('heroicon-o-fire'),
         ];
     }
 
